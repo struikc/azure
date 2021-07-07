@@ -1,19 +1,13 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
-
+# Azure Monitor alerts
+# Configure alerts on available metrics for an Azure resource
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureMonitorAlerts@0
+  inputs:
+    azureSubscription: 'd846d983-1473-44c3-8b5c-5b411c14075b'
+    resourceGroupName: 'cst-rg-prd'
+    resourceType: 'Microsoft.Synapse/workspace'
+    #'Microsoft.Insights/components' # Options: microsoft.Insights/Components, microsoft.Web/Sites, microsoft.Storage/StorageAccounts, microsoft.Compute/VirtualMachines
+    resourceName: 'cstdwh-ws'
+    alertRules: 
+      #notifyServiceOwners: # Optional
+      notifyEmails: cstruik@ilionx.com
